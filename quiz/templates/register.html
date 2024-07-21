@@ -1,0 +1,41 @@
+{% extends 'main.html' %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header bg-info">
+                    <div class="card-title">
+                        <h3>Register</h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="form-group">
+                                {{ field.label_tag }}
+                                <br>
+                                {{ field }}
+                                {% if field.errors %}
+                                    <div class="alert alert-danger">
+                                        {% for error in field.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-primary">SignUp</button>
+                        <br>
+                        <br>
+                        <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+                    </form>
+                </div>
+            </div>   
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

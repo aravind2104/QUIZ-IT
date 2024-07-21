@@ -1,0 +1,25 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h1>Profile</h1>
+    <p>Username: {{ user.username }}</p>
+    <h2 class="mt-4">My Quizzes:</h2>
+    <ul class="list-group mt-4">
+        {% for quiz in quizzes %}
+            <li class="list-group-item">
+                <h4><a href="{% url 'quiz-room' quiz.id %}">{{ quiz.title }}</a></h4>
+                <p><strong>Category:</strong> {{ quiz.category }}</p>
+                <p><strong>Host:</strong> {{ quiz.host.username }}</p>
+                <a href="{% url 'quiz-room' quiz.id %}" class="btn btn-primary btn-sm ml-1">View Quiz</a>
+                <a href="{% url 'delete-quiz' quiz.id %}" class="btn btn-danger btn-sm ml-1">Delete</a>
+            </li>
+        {% empty %}
+        <h3> No Quizzes Hosted!</h3>
+        {% endfor %}
+    </ul>
+</div>
+
+
+{% endblock content %}
+
+

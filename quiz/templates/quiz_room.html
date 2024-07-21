@@ -1,0 +1,27 @@
+{% extends 'main.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h1>{{ quiz.title }}</h1>
+    <p>{{ quiz.description }}</p>
+    <p><strong>Category:</strong> {{ quiz.category }}</p>
+    <p><strong>Host:</strong> {{ quiz.host.username }}</p>
+    <p><strong>Number of Questions:</strong> {{ quiz.questions.count }}</p>
+    {% if request.user == quiz.host %}
+    <h2 class="mt-4">Questions</h2>
+    <ul class="list-group mt-4">
+        {% for question in questions %}
+            <li class="list-group-item">
+                <strong>Q{{ question.question_no }}:</strong> {{ question.text }}
+                <br>
+                <a href="{% url 'edit-question' question.id %}" class="btn btn-primary btn-sm ml-2">Edit</a>
+                <a href="{% url 'delete-question' question.id %}" class="btn btn-danger btn-sm ml-2">Delete</a>
+                <br>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'add-question' quiz.id %}" class="btn btn-primary mt-3">Add More Questions</a>
+    {% else %}
+    <a href="{% url 'attempt-quiz' quiz.id %}" class="btn btn-primary mt-3">Attempt the Quiz</a>
+    {% endif %}
+</div>
+{% endblock content %}

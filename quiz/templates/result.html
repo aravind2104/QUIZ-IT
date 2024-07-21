@@ -1,0 +1,23 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>{{ quiz.title }} - Results</h1>
+    <h2>Your Score: {{ score }} out of {{ total_questions }}</h2>
+    <ul class="list-group mt-4">
+        {% for result in detailed_results %}
+            <li class="list-group-item">
+                <h4>Q{{ result.question.question_no }}: {{ result.question.text }}</h4>
+                <p><strong>Your Answer:</strong> {{ result.user_answer }}</p>
+                <p><strong>Correct Answer:</strong> {{ result.question.answer }}</p>
+                {% if result.is_correct %}
+                    <p class="text-success">Correct</p>
+                {% else %}
+                    <p class="text-danger">Incorrect</p>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'home' %}" class="btn btn-secondary mt-3">Back to Home</a>
+</div>
+{% endblock %}
